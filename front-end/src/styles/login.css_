@@ -58,8 +58,8 @@
   }
   
   .user-login-area form button:nth-child(even) {
-    background: #036B52;
-    border: 1px #036B52 solid;
+    background: #036b52;
+    border: 1px #036b52 solid;
     border-radius: 8px;
     color: white;
     cursor: pointer;
@@ -74,9 +74,9 @@
   }
   
   .user-login-area form button:nth-child(odd) {
-    border: 2px #036B52 solid;
+    border: 2px #036b52 solid;
     border-radius: 8px;
-    color: #036B52;
+    color: #036b52;
     cursor: pointer;
     font-family: Verdana , Tahoma , sans-serif;
     font-size: 16px;
