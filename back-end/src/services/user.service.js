@@ -1,11 +1,11 @@
 const { User } = require('../database/models');
 const { validateUser } = require('./auth.service');
 
-const createUser = async ({ displayName, email, password }) => {
-const { error, token } = await validateUser({ displayName, email, password });
+const createUser = async ({name, email, password }) => {
+const { error, token } = await validateUser({ name, email, password });
 
   if (error) { return { message: error }; } 
-    User.create({ displayName, email, password });
+    User.create({ name, email, password });
   return { token };
 };
 

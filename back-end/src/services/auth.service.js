@@ -36,7 +36,7 @@ const validateLogin = async ({ email, password }) => {
 
 const validateUser = async (params) => {
   const schema = Joi.object({
-    displayName: Joi.string().min(8).required(),
+    name: Joi.string().min(8).required(),
     password: Joi.string().min(6).required(),
     email: Joi.string().email().required(),
   });
