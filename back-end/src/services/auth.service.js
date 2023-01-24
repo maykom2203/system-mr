@@ -19,19 +19,19 @@ const validateBody = (params) => {
     return value;
   };
 
-const validateLogin = async ( { email, password } ) => {
+const validateLogin = async ({ email, password }) => {
   // return {email, password}
   const user = await User.findOne({ where: { email } });
     if (!user || user.password !== password) {
       const message = 'Invalid fields';
-      return  message ;
+      return { token: null, message };
     }
   
     const { password: _, ...userWithoutPassword } = user.dataValues;
   
     const token = jwtUtil.createToken(userWithoutPassword);
   
-    return token;
+    return { token, message: null };
   };
 
 const validateUser = async (params) => {

@@ -7,7 +7,7 @@ const login = async (req, res) => {
     return res.status(400).json({ message: result });
   }
   
-  const message = await authService.validateLogin(valor);
+  const { token, message } = await authService.validateLogin(valor);
   // return res.status(200).json(t);
 
   if (message) {
