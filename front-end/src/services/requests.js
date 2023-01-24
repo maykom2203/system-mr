@@ -9,8 +9,8 @@ export const requestData = async (endpoint) => {
   return data;
 };
 
-export const requestLogin = async (endpoint, body) => {
-  const { data } = await api.post(endpoint, body);
+export const requestLogin = async (endpoint, { email, password }) => {
+  const data = await api.post(endpoint, { email, password });
   return data;
 };
 

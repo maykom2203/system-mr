@@ -12,9 +12,8 @@ function Login() {
   const login = async (event) => {
     event.preventDefault();
     try {
-      console.log(event);
-      const data = await requestLogin('/login', { email, password });
-      console.log(data);
+      const data = await requestLogin('login', { email, password });
+      console.log('vem do back', data);
     } catch (error) {
       console.log(error);
       setFailedTryLogin(true);
@@ -22,7 +21,6 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log('teste');
     setFailedTryLogin(false);
   }, [email, password]);
 
@@ -34,7 +32,7 @@ function Login() {
           <label htmlFor="email-input">
             <input
               className="login__login_input"
-              type="text"
+              type="email"
               value={ email }
               onChange={ ({ target: { value } }) => setEmail(value) }
               data-testid="common_login__input-email"
@@ -70,7 +68,7 @@ function Login() {
                 <p data-testid="common_login__element-invalid-email">
                   {
                     `O endereço de e-mail ou a senha não estão corretos.
-                        Por favor, tente novamente.${password}`
+                        Por favor, tente novamente.`
                   }
                 </p>
               )
