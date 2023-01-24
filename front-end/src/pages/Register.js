@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-// import { registerSchema } from '../Schemas/registerSchema';
+import { useNavigate } from 'react-router-dom';
+import { registerSchema } from '../Schemas/registerSchema';
+import requestApi from '../utils/RequestApi';
 
 function Register() {
   const [name, setName] = useState('');
@@ -8,7 +9,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [badRegister, setBadRegister] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const enabledButton = () => {
@@ -38,6 +39,25 @@ function Register() {
     setPassword(value);
   };
 
+  const register = async () => {
+    const success = 201;
+
+    const { status } = await requestApi('POST', 'register', {
+      name,
+      email,
+      password,
+    });
+
+    if (status === success) {
+      const { data } = await requestApi('POST', 'login', { email, password });
+      setUser({
+        ...data.user,
+        token: data.token,
+      });
+      navigate('/customer/products');
+    }
+    setBadRegister(true);
+  };
 
   const invalidRegisterMessage = (
     <span
@@ -66,7 +86,7 @@ function Register() {
             data-testid="common_register__input-email"
             id="email-input-register"
             type="email"
-            placeholder="Email"
+            placeholder="email@dominio.com"
           />
         </label>
         <label htmlFor="password-input-register">
@@ -78,7 +98,7 @@ function Register() {
             type="password"
             placeholder="Senha"
           />
-       </label>
+        </label>
         <button
           onClick={ register }
           type="button"
@@ -87,7 +107,14 @@ function Register() {
         >
           Cadastrar
         </button>
-        { badRegister && invalidRegisterMessage }
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
+        >
+          Voltar
+          { badRegister && invalidRegisterMessage }
+        </button>
       </form>
     </div>
   );

@@ -1,11 +1,15 @@
 FROM node:16.14-alpine
+
 WORKDIR /front-end
 
 COPY . .
 
 RUN npm install
 
+<<<<<<< HEAD:front-end/Dockerfile
 
+=======
+>>>>>>> 07cf63620f0fecc00f67c9aa2fc664a74d064a70:front-end/Dockerfile_
 EXPOSE 3000
 
 ENTRYPOINT [ "npm", "start" ]

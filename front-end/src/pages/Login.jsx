@@ -1,25 +1,23 @@
-import '../styles/pages/login.css';
+// import '../styles/login.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { requestLogin } from '../services/requests';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const navigate = useNavigate();
 
   const login = async (event) => {
     event.preventDefault();
     try {
       console.log(event);
-      const { role } = await requestData('/login/validate', { email, password });
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
-
-      setIsLogged(true);
+      const data = await requestLogin('/login', { email, password });
+      console.log(data);
     } catch (error) {
+      console.log(error);
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   };
 
@@ -27,7 +25,6 @@ function Login() {
     console.log('teste');
     setFailedTryLogin(false);
   }, [email, password]);
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -73,7 +70,7 @@ function Login() {
                 <p data-testid="common_login__element-invalid-email">
                   {
                     `O endereço de e-mail ou a senha não estão corretos.
-                        Por favor, tente novamente.`
+                        Por favor, tente novamente.${password}`
                   }
                 </p>
               )
