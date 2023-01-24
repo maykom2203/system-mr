@@ -34,7 +34,6 @@ function Login() {
               className="login__login_input"
               type="email"
               value={ email }
-              disabled={ ativar }
               onChange={ ({ target: { value } }) => setEmail(value) }
               data-testid="common_login__input-email"
               placeholder="Login"
