@@ -54,7 +54,7 @@ function Register() {
         ...data.user,
         token: data.token,
       });
-      navigate('/customer/products');
+      // navigate('/customer/products');
     }
     setBadRegister(true);
   };
