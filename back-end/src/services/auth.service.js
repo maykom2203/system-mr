@@ -1,12 +1,11 @@
 const Joi = require('joi');
+const CryptoJS = require('crypto-js');
 const jwtUtil = require('../utils/jwt.util');
 // const md5 = require("md5");
-const CryptoJS = require('crypto-js');
 
 const { User } = require('../database/models');
 
 const validateBody = (params) => {
-  const {email, password} = params
     const schema = Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().min(6).required(),
@@ -17,25 +16,20 @@ const validateBody = (params) => {
     if (validate.error) {
       const e = 'Some required fields are missing';
       return { error: e };
-    } else {
-      return validate.value
-    }
-    
+    } 
+      return validate.value;
   };
 
-const validateLogin = async ( email, password ) => {
+const validateLogin = async (email, password) => {
     const user = await User.findOne({ where: { email } });
-    // const users = await User.findAll();
-    // console.log(users)
-    // const hash = md5(password);
 
     if (!user || user.password !== CryptoJS.MD5(password).toString()) {
       const message = 'Invalid fields';
-      return  {message} ;
+      return { message };
     }
     const { password: _, ...userWithoutPassword } = user.dataValues;
     const token = jwtUtil.createToken(userWithoutPassword);
-    return token ;
+    return token;
   };
 
 const validateUser = async (params) => {
