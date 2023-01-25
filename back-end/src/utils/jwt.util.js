@@ -6,7 +6,7 @@ require('dotenv/config');
 
 const createToken = (data) => {
     const token = sign(
-        { data },jwtKey,
+        { data }, jwtKey,
         {
         expiresIn: '1d',
         algorithm: 'HS256',
