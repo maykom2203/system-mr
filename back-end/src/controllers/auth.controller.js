@@ -1,19 +1,21 @@
 const authService = require('../services/auth.service');
 
 const login = async (req, res) => {
-  const { email, password } = authService.validateBody(req.body);
-  const result = authService.validateBody(req.body).error;
-  if (result) {
-    return res.status(400).json({ message: result });
+  const valBody = authService.validateBody(req.body);
+  const {email, password} = req.body
+  if(valBody.error){
+    const result = authService.validateBody(req.body);
+    return res.status(400).json( { message: result });
   }
+  const result = authService.validateBody(req.body);
 
-  const { token, message } = await authService.validateLogin({ email, password });
-
-  if (message) {
-    return res.status(400).json({ message });
+  const validate = await authService.validateLogin(email, password);
+  if (validate.message === "Invalid fields") {
+    return res.status(404).json(validate);
+  } 
+  else {
+    return res.status(200).json({token:validate} );
   }
-
-  res.status(200).json({ token });
 };
 
 module.exports = { login };
