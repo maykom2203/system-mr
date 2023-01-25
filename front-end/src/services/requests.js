@@ -9,9 +9,16 @@ export const requestData = async (endpoint) => {
   return data;
 };
 
-export const requestLogin = async (endpoint, { email, password }) => {
-  const data = await api.post(endpoint, { email, password });
-  return data;
+export const requestLogin = async (email, password) => {
+  await axios.post('http://localhost:3001/login', {
+    email,
+    password,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log('Authenticated');
+      return 'passou';
+    });
 };
 
 export default api;
