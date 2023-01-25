@@ -25,7 +25,7 @@ const validateLogin = async (email, password) => {
 
     if (!user || user.password !== CryptoJS.MD5(password).toString()) {
       const message = 'Invalid fields';
-      return { message };
+      return { token: null, message };
     }
     const { password: _, ...userWithoutPassword } = user.dataValues;
     const token = jwtUtil.createToken(userWithoutPassword);

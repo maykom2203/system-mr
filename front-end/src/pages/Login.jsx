@@ -48,7 +48,7 @@ function Login() {
           <label htmlFor="email-input">
             <input
               className="login__login_input"
-              type="text"
+              type="email"
               value={ email }
               onChange={ ({ target: { value } }) => setEmail(value) }
               data-testid="common_login__input-email"
@@ -86,7 +86,7 @@ function Login() {
                   {
                     `O endereço de e-mail ou a senha não estão corretos.
                         Por favor, tente novamente.
-                        `
+                        ,
                   }
                 </p>
               )
