@@ -1,7 +1,7 @@
 const Joi = require('joi');
 // const CryptoJS = require('crypto-js');
+const md5 = require('md5');
 const jwtUtil = require('../utils/jwt.util');
-const md5 = require("md5");
 
 const { User } = require('../database/models');
 
