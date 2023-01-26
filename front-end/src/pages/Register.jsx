@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../Schemas/registerSchema';
-import requestApi from '../utils/RequestApis';
+import requestApi from '../utils/RequestApi';
 
 function Register() {
   const [name, setName] = useState('');
@@ -47,6 +47,7 @@ function Register() {
       email,
       password,
     });
+    navigate('/customer/products');
 
     if (status === success) {
       const { data } = await requestApi('POST', 'login', { email, password });
@@ -54,7 +55,6 @@ function Register() {
         ...data.user,
         token: data.token,
       });
-      navigate('/customer/products');
     }
     setBadRegister(true);
   };
@@ -64,7 +64,8 @@ function Register() {
       data-testid="common_register__element-invalid_register"
     >
       Dados inválidos
-    </span>);
+    </span>
+  );
 
   return (
     <div>

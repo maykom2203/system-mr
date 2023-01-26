@@ -1,7 +1,7 @@
 const Joi = require('joi');
-const CryptoJS = require('crypto-js');
+// const CryptoJS = require('crypto-js');
+const md5 = require('md5');
 const jwtUtil = require('../utils/jwt.util');
-// const md5 = require("md5");
 
 const { User } = require('../database/models');
 
@@ -23,7 +23,7 @@ const validateBody = (params) => {
 const validateLogin = async (email, password) => {
     const user = await User.findOne({ where: { email } });
 
-    if (!user || user.password !== CryptoJS.MD5(password).toString()) {
+    if (!user || user.password !== md5(password).toString()) {
       const message = 'Invalid fields';
       return { token: null, message };
     }
