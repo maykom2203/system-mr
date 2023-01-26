@@ -31,4 +31,3 @@ const validateToken = (token = null) => {
 module.exports = { createToken,
     validateToken,
 };
-
