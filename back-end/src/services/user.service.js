@@ -1,11 +1,14 @@
 const { User } = require('../database/models');
 const { validateUser } = require('./auth.service');
+const md5 = require('md5');
 
-const createUser = async ({ name, email, password }) => {
-const { error, token } = await validateUser({ name, email, password });
+const createUser = async ({ name, email, password,  }) => {
+const hast = md5(password).toString()
+const { error, token } = await validateUser({ name, email, password, });
 
   if (error) { return { message: error }; } 
-    User.create({ name, email, password });
+  password = hast;
+   await User.create({ name, email, password});
   return { token };
 };
 
