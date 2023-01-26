@@ -1,12 +1,8 @@
 const userService = require('../services/user.service');
 const { validateToken } = require('../utils/jwt.util');
 
-
 const createUser = async (req, res) => {
-
-
   const response = await userService.createUser(req.body);
- 
   const { message } = response;
   
   if (message) {
