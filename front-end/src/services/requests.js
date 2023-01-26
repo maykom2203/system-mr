@@ -14,10 +14,7 @@ export const requestLogin = async (email, password) => {
     email,
     password,
   });
-  // .then((response) => {
-  //   console.log(response);
-  //   console.log('Authenticated ');
-  // });
+
   console.log(data);
   return data;
 };
@@ -30,10 +27,6 @@ export const requestCreate = async (body) => {
   } catch (error) {
     return { data, message: 'usuario cadastrado', status: 409 };
   }
-
-  // .then((response) => {
-  // console.log(response);
-  // console.log('Authenticated');
 };
 
 export default api;

@@ -46,9 +46,11 @@ function Register() {
 
     if (status === success) {
       const dezmil = 1000;
+      localStorage.setItem('user', JSON.stringify({ ...data }));
       setTimeout(async () => {
         navigate('/customer/products');
       }, dezmil);
+      return null;
     }
     setBadRegister(true);
   };
