@@ -13,12 +13,11 @@ export const requestLogin = async (email, password) => {
   await axios.post('http://localhost:3001/login', {
     email,
     password,
-  })
-    .then((response) => {
-      console.log(response);
-      console.log('Authenticated');
-      return 'passou';
-    });
+  });
+  // .then((response) => {
+  // console.log(response);
+  // console.log('Authenticated');
+  return 'data';
 };
 
 export default api;

@@ -1,25 +1,12 @@
 import axios from 'axios';
 
-const HOST = process.env.REACT_APP_API_HOST || 'localhost:3001';
-const PROTOCOL = process.env.REACT_APP_API_PROTOCOL || 'http';
-const request = axios.create({
-  baseURL: `${PROTOCOL}://${HOST}/`,
-  timeout: 10000,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
+const requestApi = axios.create({ baseURL: 'http://localhost:3001' });
 
-const requestApi = async (
-  method,
-  endpoint,
-  body,
-  headers,
-
-) => request
-  .request({ method, url: endpoint, data: body, headers })
-  .then(({ status, data }) => ({ status, data }))
-  .catch((error) => error.toJSON());
-
+export const getAllProducts = async () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const data = await requestApi.get('/products', { headers: {
+    Authorization: `${user.token}` } })
+    .then((response) => response.data);
+  return data;
+};
 export default requestApi;
