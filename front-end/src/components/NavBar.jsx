@@ -5,7 +5,7 @@ function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
-  console.log('deu certo');
+  console.log(user);
   return (
     <nav>
       <ul>
@@ -32,7 +32,7 @@ function NavBar() {
           <p
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            { user }
+            { user.name }
           </p>
         </li>
         <li>

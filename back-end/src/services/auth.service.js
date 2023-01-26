@@ -28,8 +28,9 @@ const validateLogin = async (email, password) => {
       return { token: null, message };
     }
     const { password: _, ...userWithoutPassword } = user.dataValues;
+    const name = user.dataValues.name
     const token = jwtUtil.createToken(userWithoutPassword);
-    return token;
+    return {token, name} ;
   };
 
 const validateUser = async (params) => {

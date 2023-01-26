@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
   
   if (message) {
     if (message === 'User already registered') {
-      return res.status(409).json({ message }); 
+      return res.status(409).send({ message }); 
   }
     return res.status(400).json({ message }); 
 }

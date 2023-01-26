@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../Schemas/registerSchema';
-import requestApi from '../utils/RequestApi';
+import { requestCreate } from '../services/requests';
 
 function Register() {
   const [name, setName] = useState('');
@@ -41,30 +41,24 @@ function Register() {
 
   const register = async () => {
     const success = 201;
-
-    const { status } = await requestApi('POST', 'register', {
-      name,
-      email,
-      password,
-    });
-    navigate('/customer/products');
+    const { data, status } = await requestCreate({ name, email, password });
+    console.log(data, status);
 
     if (status === success) {
-      const { data } = await requestApi('POST', 'login', { email, password });
-      setUser({
-        ...data.user,
-        token: data.token,
-      });
+      const dezmil = 1000;
+      setTimeout(async () => {
+        navigate('/customer/products');
+      }, dezmil);
     }
     setBadRegister(true);
   };
 
   const invalidRegisterMessage = (
-    <span
+    <p
       data-testid="common_register__element-invalid_register"
     >
       Dados inválidos
-    </span>
+    </p>
   );
 
   return (
@@ -114,8 +108,8 @@ function Register() {
           onClick={ () => navigate('/register') }
         >
           Voltar
-          { badRegister && invalidRegisterMessage }
         </button>
+        { badRegister && invalidRegisterMessage }
       </form>
     </div>
   );
