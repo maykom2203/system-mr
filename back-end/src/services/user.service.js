@@ -9,7 +9,7 @@ const createUser = async ({ name, email, password }) => {
 
   if (error) { return { message: error }; }
   await User.create({ name, email, password: hast });
-  return { token };
+  return { token, name };
 };
 
 const getUser = async () => User.findAll(

@@ -15,10 +15,11 @@ function Login() {
   const login = async (event) => {
     event.preventDefault();
     try {
-      const { id, name, role } = await requestLogin(email, password);
+      const data = await requestLogin(email, password);
+      console.log('usuario  ', data);
       setFailedTryLogin(false);
       setRedirect(true);
-      localStorage.setItem('user', JSON.stringify([id, name, email, role]));
+      localStorage.setItem('user', JSON.stringify({ ...data }));
     } catch (error) {
       console.log(error);
       setFailedTryLogin(true);
