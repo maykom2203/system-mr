@@ -40,7 +40,7 @@ function Products() {
             type="submit"
             data-testid="customer_products__button-cart"
             onClick={ handleProductsClick }
-            disabled={ cart.subTotal === 0 }
+            disabled={ totalCart === 0 }
           >
             Ver Carrinho: R$
             <span
