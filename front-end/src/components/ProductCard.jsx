@@ -94,6 +94,7 @@ export default function ProductCard({
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
+        width="90px"
         alt={ name }
       />
       <p
