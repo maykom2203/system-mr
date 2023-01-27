@@ -13,7 +13,7 @@ const login = async (req, res) => {
     return res.status(404).json(validate);
   } 
   
-    return res.status(200).json({ token: validate.token, name: validate.name });
+    return res.status(200).json({ token: validate.token, name: validate.name, email: validate.email, role: validate.role });
 };
 
 module.exports = { login };
