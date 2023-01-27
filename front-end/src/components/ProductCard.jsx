@@ -59,7 +59,7 @@ export default function ProductCard({
       });
     }
     const storageUpd = storage.map((product, index) => {
-      if (index === productIndex) {
+      if (index === idProduct) {
         return {
           ...product,
           quantity: number,
