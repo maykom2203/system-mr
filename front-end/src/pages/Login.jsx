@@ -16,7 +16,6 @@ function Login() {
     event.preventDefault();
     try {
       const data = await requestLogin(email, password);
-      console.log('usuario  ', data);
       setFailedTryLogin(false);
       setRedirect(true);
       localStorage.setItem('user', JSON.stringify({ ...data }));

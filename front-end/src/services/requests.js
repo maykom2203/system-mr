@@ -29,4 +29,9 @@ export const requestCreate = async (body) => {
   }
 };
 
+export const requestProducts = async () => {
+  const { data } = await axios.get('http://localhost:3001/customer/products');
+  return data;
+};
+
 export default api;

@@ -5,7 +5,6 @@ function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
-  console.log(user);
   return (
     <nav>
       <ul>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard';
 import NavBar from '../../components/NavBar';
-import { getAllProducts } from '../../utils/RequestApi';
+import { requestProducts } from '../../services/requests';
 
 function Products() {
   const replaceValue = (string) => string.replace('.', ',');
@@ -11,14 +11,13 @@ function Products() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const AllProducts = await getAllProducts();
-      setProducts(AllProducts.products);
+      const AllProducts = await requestProducts();
+      setProducts(AllProducts);
     };
     fetchProducts();
   }, [setCart]);
 
-  const totalCart = cart.reduce((acc, curr) => acc + (curr.qtd * curr.unitPrice), 0);
-
+  const totalCart = cart.reduce((acc, curr) => acc + (curr.quantity * curr.unitPrice), 0);
   const navigate = useNavigate();
   function handleProductsClick() {
     navigate('/customer/checkout');
@@ -51,7 +50,7 @@ function Products() {
               id={ product.id }
               name={ product.name }
               price={ product.price }
-              urlImage={ product.urlImage }
+              urlImage={ product.url_image }
               cart={ cart }
               setCart={ setCart }
             />)) }
