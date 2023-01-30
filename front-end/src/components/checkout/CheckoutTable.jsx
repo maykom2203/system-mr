@@ -10,6 +10,7 @@ function CheckoutTable({
     localStorage.setItem('carrinho', JSON.stringify(filterCart));
     setCart(filterCart);
   };
+  const replaceValue = (string) => string.replace('.', ',');
 
   const total = cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
 
@@ -41,34 +42,38 @@ function CheckoutTable({
                 <td
                   data-testid={ `customer_checkout__element-order-table-name-${index}` }
                 >
-                  { product.name }
+                  { order.name }
 
                 </td>
                 <td
-                  data-testid={ `customer_checkout__element-order-table-quantity-
-                  ${index}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-quantity-${index}`
+                  }
                 >
-                  { product.quantity }
+                  { order.quantity }
 
                 </td>
                 <td
-                  data-testid={ `customer_checkout__element-order-table-unit-price-
-                  ${index}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-unit-price-${index}`
+                  }
                 >
-                  { (order.unitPrice) }
+                  {replaceValue(order.unitPrice) }
                 </td>
                 <td
-                  data-testid={ `customer_checkout__element-order-table-sub-total-
-                  ${index}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-sub-total-${index}`
+                  }
                 >
-                  { (order.subTotal.toFixed(2)) }
+                  { replaceValue(order.subTotal.toFixed(2)) }
 
                 </td>
                 {buttonOn && (
                   <td>
                     <button
-                      data-testid={ `$customer_checkout__element-order-table-remove-
-                      ${index}` }
+                      data-testid={
+                        `customer_checkout__element-order-table-remove-${index}`
+                      }
                       type="button"
                       onClick={ () => handleRemove(index) }
                     >
@@ -79,15 +84,15 @@ function CheckoutTable({
               </tr>
             ))}
           </tbody>
+          <h3
+            className="total-price"
+            data-testid="customer_checkout__element-order-total-price"
+          >
+            {`Total: R$${replaceValue(total.toFixed(2))}`}
+
+          </h3>
         </table>
       )}
-      <h3
-        className="total-price"
-        data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-      >
-        {`Total: R$${(total.toFixed(2))}`}
-
-      </h3>
     </section>
   );
 }

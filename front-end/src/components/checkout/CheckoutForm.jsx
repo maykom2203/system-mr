@@ -13,7 +13,7 @@ function CheckoutForm({ cart }) {
 
   useEffect(() => {
     const sellerUpd = async () => {
-      const { data } = await requestProducts.get('http://localhost:3001/user/role/seller');
+      const data = await requestProducts();
       setSellers(data);
     };
     sellerUpd();

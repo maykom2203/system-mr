@@ -9,7 +9,6 @@ export default function Checkout() {
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem('carrinho'));
     setCart(storage);
-    setLoading(false);
   }, [setCart]);
 
   return (

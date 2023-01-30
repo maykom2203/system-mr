@@ -36,7 +36,7 @@ module.exports = {
       delivery_number: {
         type: Sequelize.STRING
       },
-      sale_date: {
+      sales_date: {
         type: Sequelize.DATE,
       },
       status: {
