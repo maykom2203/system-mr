@@ -89,7 +89,7 @@ function CheckoutForm({ cart }) {
         />
       </label>
       <button
-        disabled={ !isAble }
+        disabled={ isAble }
         data-testid="customer_checkout__button-submit-order"
         type="button"
         onClick={ handleClick }
