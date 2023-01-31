@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { requestProducts } from '../../services/requests';
+import { requestProducts, requestSalesID } from '../../services/requests';
 
 function CheckoutForm({ cart }) {
   const [idSeller, setIdSeller] = useState('');
@@ -31,16 +31,13 @@ function CheckoutForm({ cart }) {
       userId: id,
       idSeller,
       totalPrice: cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0).toFixed(2),
-      setCustomerAddress,
-      setNumbersAddress,
+      addressCustomer,
+      numberAddress,
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
 
-    const { data } = await api.post(
-      'http://localhost:3001/customer/orders',
-      body,
-      { headers: { Authorization: `${token}` } },
-    );
+    const data = await requestSalesID(token, body);
+    console.log(data);
     navigate({
       pathname: `/customer/orders/${data.id}`,
       state: data.id,
@@ -74,8 +71,8 @@ function CheckoutForm({ cart }) {
         <input
           type="text"
           data-testid="customer_checkout__input-address"
-          value={ setNumbersAddress }
-          onChange={ ({ target: { value } }) => setNumbersAddress(value) }
+          value={ addressCustomer }
+          onChange={ ({ target: { value } }) => setCustomerAddress(value) }
         />
       </label>
 
@@ -84,7 +81,7 @@ function CheckoutForm({ cart }) {
         <input
           type="text"
           data-testid="customer_checkout__input-address-number"
-          value={ setNumbersAddress }
+          value={ numberAddress }
           onChange={ ({ target: { value } }) => setNumbersAddress(value) }
         />
       </label>

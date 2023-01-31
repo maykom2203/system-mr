@@ -16,11 +16,11 @@ const createToken = (data) => {
     return token;
 };
 
-const validateToken = (token = null) => {
-    if (!token) throw new Error('Token not found');
+const validateToken = (token) => {
+    // if (!token) throw new Error('Token not found');
 
     try {
-        const { data } = verify(token, process.env.JWT_SECRET || 'secret_key');
+        const {data} = verify(token, jwtKey);
         return data;
     } catch (error) {
         const e = new Error('Expired or invalid token');

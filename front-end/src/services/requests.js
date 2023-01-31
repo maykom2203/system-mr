@@ -34,4 +34,36 @@ export const requestProducts = async () => {
   return data;
 };
 
+// export const requestSalesID = async (token, body) => {
+//   const { data } = await axios.post(
+//     'http://localhost:3001/customer/checkout',
+//     {
+//       user_id: body.userId,
+//       total_price: body.totalPrice,
+//       delivery_address: body.addressCustomer,
+//       delivery_number: body.numberAddress,
+//     },
+//     { headers: { Authorization: `${token}` } },
+//   );
+//   return data;
+
+export const requestSalesID = async (token, body) => {
+  let data;
+  try {
+    data = await axios.post(
+      'http://localhost:3001/customer/checkout',
+      {
+        user_id: body.userId,
+        total_price: body.totalPrice,
+        delivery_address: body.addressCustomer,
+        delivery_number: body.numberAddress,
+      },
+      { headers: { Authorization: `${token}` } },
+    );
+    return data;
+  } catch (error) {
+    return { data, message: 'venda falhou', status: 409 };
+  }
+};
+
 export default api;
