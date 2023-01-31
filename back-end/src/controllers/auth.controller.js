@@ -17,7 +17,7 @@ const login = async (req, res) => {
     name: validate.name,
     email: validate.email,
     role: validate.role,
-    id: validate.id
+    id: validate.id,
   });
 };
 

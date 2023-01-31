@@ -20,7 +20,7 @@ const validateToken = (token) => {
     // if (!token) throw new Error('Token not found');
 
     try {
-        const {data} = verify(token, jwtKey);
+        const { data } = verify(token, jwtKey);
         return data;
     } catch (error) {
         const e = new Error('Expired or invalid token');

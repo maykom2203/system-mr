@@ -40,7 +40,7 @@ export const requestSalesID = async (token, body) => {
     data = await axios.post(
       'http://localhost:3001/sales',
       {
-        user_id: body.userId,
+        userId: body.userId,
         total_price: body.totalPrice,
         delivery_address: body.addressCustomer,
         delivery_number: body.numberAddress,
@@ -52,7 +52,6 @@ export const requestSalesID = async (token, body) => {
     return { data, message: 'venda falhou', status: 409 };
   }
 };
-
 export const requestUserData = async () => {
   let data;
   try {
