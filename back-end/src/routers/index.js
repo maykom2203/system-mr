@@ -10,6 +10,6 @@ routers.use('/login', authRouter);
 routers.use('/register', userRouter);
 routers.use('/customer/products', productsRouter);
 routers.use('/images', express.static(path.resolve('src/public')));
-routers.use('/customer/checkout', salesRouter);
+routers.use('/sales', salesRouter);
 
 module.exports = routers;

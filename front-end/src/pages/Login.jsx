@@ -16,11 +16,13 @@ function Login() {
     event.preventDefault();
     try {
       const data = await requestLogin(email, password);
+      const { name, role, token } = data;
       setFailedTryLogin(false);
       setRedirect(true);
-      localStorage.setItem('user', JSON.stringify({ ...data }));
+      localStorage.setItem('user', JSON.stringify(
+        { email, name, role, token },
+      ));
     } catch (error) {
-      console.log(error);
       setFailedTryLogin(true);
     }
   };

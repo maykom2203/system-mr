@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { requestProducts, requestSalesID } from '../../services/requests';
+import { requestProducts,
+  requestSalesID, requestUserData,
+} from '../../services/requests';
 
 function CheckoutForm({ cart }) {
   const [idSeller, setIdSeller] = useState('');
   const [addressCustomer, setCustomerAddress] = useState('');
   const [numberAddress, setNumbersAddress] = useState('');
   const [sellers, setSellers] = useState([]);
-  const [isAble, setIsAble] = useState(false);
+  // const [isAble, setIsAble] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,28 +21,28 @@ function CheckoutForm({ cart }) {
     sellerUpd();
   }, []);
 
-  useEffect(() => {
-    if (idSeller !== '' && addressCustomer !== '' && numberAddress) {
-      setIsAble(true);
-    }
-  }, [idSeller, addressCustomer, numberAddress]);
+  // useEffect(() => {
+  //   if (idSeller !== '' && addressCustomer !== '' && numberAddress) {
+  //     setIsAble(true);
+  //   }
+  // }, [idSeller, addressCustomer, numberAddress]);
 
   const handleClick = async () => {
-    const { id, token } = JSON.parse(localStorage.getItem('user'));
+    const { token, email } = await JSON.parse(localStorage.getItem('user'));
+    const users = await requestUserData();
+    const find = users.data.find((user) => email === user.email);
     const body = {
-      userId: id,
+      userId: find.id,
       idSeller,
       totalPrice: cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0).toFixed(2),
       addressCustomer,
       numberAddress,
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
-
-    const data = await requestSalesID(token, body);
-    console.log(data);
+    const { data } = await requestSalesID(token, body);
     navigate({
       pathname: `/customer/orders/${data.id}`,
-      state: data.id,
+      state: data,
     });
     localStorage.setItem('carrinho', JSON.stringify([]));
   };
@@ -86,7 +88,7 @@ function CheckoutForm({ cart }) {
         />
       </label>
       <button
-        disabled={ isAble }
+        // disabled={ isAble }
         data-testid="customer_checkout__button-submit-order"
         type="button"
         onClick={ handleClick }

@@ -15,7 +15,7 @@ export const requestLogin = async (email, password) => {
     password,
   });
 
-  console.log(data);
+  console.log('LOGIN', data);
   return data;
 };
 
@@ -34,35 +34,32 @@ export const requestProducts = async () => {
   return data;
 };
 
-// export const requestSalesID = async (token, body) => {
-//   const { data } = await axios.post(
-//     'http://localhost:3001/customer/checkout',
-//     {
-//       user_id: body.userId,
-//       total_price: body.totalPrice,
-//       delivery_address: body.addressCustomer,
-//       delivery_number: body.numberAddress,
-//     },
-//     { headers: { Authorization: `${token}` } },
-//   );
-//   return data;
-
 export const requestSalesID = async (token, body) => {
   let data;
   try {
     data = await axios.post(
-      'http://localhost:3001/customer/checkout',
+      'http://localhost:3001/sales',
       {
         user_id: body.userId,
         total_price: body.totalPrice,
         delivery_address: body.addressCustomer,
         delivery_number: body.numberAddress,
       },
-      { headers: { Authorization: `${token}` } },
+      { headers: { Authorization: token } },
     );
     return data;
   } catch (error) {
     return { data, message: 'venda falhou', status: 409 };
+  }
+};
+
+export const requestUserData = async () => {
+  let data;
+  try {
+    data = await axios.get('http://localhost:3001/register');
+    return data;
+  } catch (error) {
+    return { message: 'falou a requisição', status: 409 };
   }
 };
 

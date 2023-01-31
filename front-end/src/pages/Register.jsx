@@ -42,7 +42,7 @@ function Register() {
   const register = async () => {
     const success = 201;
     const { data, status } = await requestCreate({ name, email, password });
-    console.log(data, status);
+    // console.log(data, status);
 
     if (status === success) {
       const dezmil = 1000;
