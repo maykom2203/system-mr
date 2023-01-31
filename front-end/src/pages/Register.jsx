@@ -45,11 +45,11 @@ function Register() {
     console.log(data, status);
 
     if (status === success) {
-      const mil = 1;
+      const dezmil = 1000;
       localStorage.setItem('user', JSON.stringify({ ...data }));
       setTimeout(async () => {
         navigate('/customer/products');
-      }, mil);
+      }, dezmil);
       return null;
     }
     setBadRegister(true);
