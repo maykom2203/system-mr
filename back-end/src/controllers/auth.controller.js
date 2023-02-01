@@ -12,12 +12,13 @@ const login = async (req, res) => {
   if (validate.message === 'Invalid fields') {
     return res.status(404).json(validate);
   } 
-  
     return res.status(200).json({ 
     token: validate.token,
     name: validate.name,
     email: validate.email,
-    role: validate.role });
+    role: validate.role,
+    id: validate.id,
+  });
 };
 
 module.exports = { login };

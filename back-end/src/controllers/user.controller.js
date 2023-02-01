@@ -1,5 +1,6 @@
 const userService = require('../services/user.service');
 const { validateToken } = require('../utils/jwt.util');
+const { User } = require('../database/models');
 
 const createUser = async (req, res) => {
   const response = await userService.createUser(req.body);
@@ -15,6 +16,11 @@ const createUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
+  // const {email}= req.body
+  // if(email){
+  //   const user = await User.findOne({ where: { email } });
+  //   return res.status(200).json(user);
+  // }
   const { authorization } = req.headers;
   const { message } = await validateToken(authorization);
 
@@ -27,6 +33,16 @@ const getUser = async (req, res) => {
   const user = await userService.getUser();
 
   return res.status(200).json(user);
+}; 
+
+const getUserByEmail = async (req, res) => {
+  // const {email}= req.body
+  // if(email){
+    const user = await User.findAll();
+    return res.status(200).json(user);
+  // } else {
+  //   return res.status(409).json({message:"bad request"});
+  // }
 }; 
 
 const getUserById = async (req, res) => {
@@ -53,4 +69,5 @@ module.exports = {
   createUser,
   getUser,
   getUserById,
+  getUserByEmail,
 };

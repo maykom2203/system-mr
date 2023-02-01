@@ -7,10 +7,18 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        eference: {
+          model: 'sales',
+          key: 'id'
+        },
       },
       product_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        reference: {
+          model: 'products',
+          key: 'id'
+        },
       },
       quantity: {
         type: Sequelize.INTEGER
