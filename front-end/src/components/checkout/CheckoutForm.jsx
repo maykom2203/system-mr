@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import { requestProducts,
   requestSalesID, requestUserData,
 } from '../../services/requests';
@@ -29,14 +30,20 @@ function CheckoutForm({ cart }) {
 
   const handleClick = async () => {
     const { token, email } = await JSON.parse(localStorage.getItem('user'));
+    const saleInfos = await JSON.parse(localStorage.getItem('carrinho'));
     const users = await requestUserData();
     const find = users.data.find((user) => email === user.email);
     const body = {
       userId: find.id,
       idSeller,
       totalPrice: cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0).toFixed(2),
+      dateTime: moment()
+        .utcOffset('+0')
+        .format('YYYY-MM-DD hh:mm:ss a'),
       addressCustomer,
       numberAddress,
+      sellerId: 2,
+      saleInfos,
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
     const { data } = await requestSalesID(token, body);
@@ -44,7 +51,7 @@ function CheckoutForm({ cart }) {
       pathname: `/customer/orders/${data.id}`,
       state: data,
     });
-    localStorage.setItem('carrinho', JSON.stringify([]));
+    // localStorage.setItem('carrinho', JSON.stringify([]));
   };
 
   return (
@@ -74,7 +81,10 @@ function CheckoutForm({ cart }) {
           type="text"
           data-testid="customer_checkout__input-address"
           value={ addressCustomer }
-          onChange={ ({ target: { value } }) => setCustomerAddress(value) }
+          onChange={ ({ target: { value } }) => {
+            // console.log(addressCustomer);
+            setCustomerAddress(value);
+          } }
         />
       </label>
 

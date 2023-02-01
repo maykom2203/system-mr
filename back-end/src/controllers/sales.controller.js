@@ -15,10 +15,10 @@ const createSales = async (req, res) => {
     const sale = await salesService.createSales(req.body);
     if (sale === 'Passou na service') {
       const { userId } = req.body;
-      console.log(userId);
       const result = await Sales.findAll({ where: { userId } });
-      const id = Object.keys(result).length + 1;
-      return res.status(201).json({ id });
+      const array = [];
+      result.map((s) => array.push(s.dataValues.id));
+      return res.status(201).json({ id: array[array.length - 1] });
     }
 };
 

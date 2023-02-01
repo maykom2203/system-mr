@@ -18,7 +18,7 @@ module.exports = {
           key: 'id'
         }
       },
-      SELLER_id: {
+      seller_id: {
         type: Sequelize.INTEGER,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -36,7 +36,7 @@ module.exports = {
       delivery_number: {
         type: Sequelize.STRING
       },
-      sales_date: {
+      sale_date: {
         type: Sequelize.DATE,
       },
       status: {
