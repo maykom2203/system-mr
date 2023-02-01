@@ -16,11 +16,6 @@ const createUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  // const {email}= req.body
-  // if(email){
-  //   const user = await User.findOne({ where: { email } });
-  //   return res.status(200).json(user);
-  // }
   const { authorization } = req.headers;
   const { message } = await validateToken(authorization);
 
@@ -36,13 +31,8 @@ const getUser = async (req, res) => {
 }; 
 
 const getUserByEmail = async (req, res) => {
-  // const {email}= req.body
-  // if(email){
     const user = await User.findAll();
     return res.status(200).json(user);
-  // } else {
-  //   return res.status(409).json({message:"bad request"});
-  // }
 }; 
 
 const getUserById = async (req, res) => {

@@ -3,6 +3,7 @@ const { validateToken } = require('../utils/jwt.util');
 const { Sales } = require('../database/models');
 
 const createSales = async (req, res) => {
+  console.log(req.body)
   const { authorization } = req.headers;
   const { message } = await validateToken(authorization);
 
@@ -17,8 +18,12 @@ const createSales = async (req, res) => {
       const { userId } = req.body;
       console.log(userId);
       const result = await Sales.findAll({ where: { userId } });
-      const id = Object.keys(result).length + 1;
-      return res.status(201).json({ id });
+      let array = [];
+      const map = result.map((sale)=>{
+        array.push(sale.dataValues.id)
+      })
+      console.log(array)
+      return res.status(201).json({ id: array[array.length - 1] });
     }
 };
 

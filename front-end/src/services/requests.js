@@ -36,14 +36,19 @@ export const requestProducts = async () => {
 
 export const requestSalesID = async (token, body) => {
   let data;
+  // console.log(body);
   try {
     data = await axios.post(
       'http://localhost:3001/sales',
       {
         userId: body.userId,
-        total_price: body.totalPrice,
-        delivery_address: body.addressCustomer,
-        delivery_number: body.numberAddress,
+        totalPrice: body.totalPrice,
+        deliveryAddress: body.addressCustomer,
+        deliveryNumber: body.numberAddress,
+        dateTime: body.dateTime,
+        sellerId: body.sellerId,
+        saleInfos: body.saleInfos,
+
       },
       { headers: { Authorization: token } },
     );
