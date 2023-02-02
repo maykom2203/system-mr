@@ -25,9 +25,10 @@ function OrderCard({
   if (status === 'Entregue') {
     statusOrder = 'order-status-entregue';
   }
+  const replaceValue = (string) => string.replace('.', ',');
 
   const handleDateOfSale = (date) => {
-    const result = moment(date).format('YYYY/MM/DD');
+    const result = moment(date).format('DD/MM/YYYY');
     return result;
   };
 
@@ -65,7 +66,7 @@ function OrderCard({
           <span
             data-testid={ `customer_orders__element-card-price-${saleId}` }
           >
-            {totalPrice}
+            {replaceValue(totalPrice)}
           </span>
         </li>
       </ul>
