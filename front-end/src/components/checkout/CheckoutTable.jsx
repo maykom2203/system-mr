@@ -84,13 +84,20 @@ function CheckoutTable({
               </tr>
             ))}
           </tbody>
-          <h3
-            className="total-price"
-            data-testid="customer_checkout__element-order-total-price"
-          >
-            {`Total: R$${replaceValue(total.toFixed(2))}`}
+          {/* APAGAR ESSA CADEIA DE TFOOT CASO ALGUM REQUISITO DE ERRADO */}
+          <tfoot>
+            <tr>
+              <td>
+                <p
+                  className="total-price"
+                  data-testid="customer_checkout__element-order-total-price"
+                >
+                  {`Total: R$${replaceValue(total.toFixed(2))}`}
 
-          </h3>
+                </p>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       )}
     </section>

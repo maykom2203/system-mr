@@ -22,6 +22,16 @@ const createSales = async (req, res) => {
     }
 };
 
+const getAllSales = async (req, res) => {
+  const result = await Sales.findAll();
+  // let array = [];
+  // const map = result.map((sale)=>{
+  //   return array.push(sale.id)
+  // })
+  return res.status(201).json(result);
+};
+
 module.exports = {
   createSales,
+  getAllSales,
 };
