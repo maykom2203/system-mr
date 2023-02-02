@@ -82,7 +82,6 @@ function CheckoutForm({ cart }) {
           data-testid="customer_checkout__input-address"
           value={ addressCustomer }
           onChange={ ({ target: { value } }) => {
-            // console.log(addressCustomer);
             setCustomerAddress(value);
           } }
         />

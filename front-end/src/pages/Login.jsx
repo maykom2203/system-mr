@@ -36,6 +36,9 @@ function Login() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('user')) {
+      navigate('/customer/products');
+    }
     validateFields();
     setFailedTryLogin(false);
   }, [email, password]);

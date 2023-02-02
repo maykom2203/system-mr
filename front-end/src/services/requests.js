@@ -36,7 +36,6 @@ export const requestProducts = async () => {
 
 export const requestSalesID = async (token, body) => {
   let data;
-  // console.log(body);
   try {
     data = await axios.post(
       'http://localhost:3001/sales',
@@ -64,6 +63,18 @@ export const requestUserData = async () => {
     return data;
   } catch (error) {
     return { message: 'falou a requisição', status: 409 };
+  }
+};
+
+export const requestSalesData = async () => {
+  let data;
+  try {
+    data = await axios.get(
+      'http://localhost:3001/sales',
+    );
+    return data;
+  } catch (error) {
+    return { data, message: 'requisição falhou', status: 409 };
   }
 };
 
