@@ -8,6 +8,7 @@ function Details() {
   const [customerOrder, setCustomerOrder] = useState([]);
   const [customerPedido, setCustomerPedido] = useState();
   const dataDetails = 'customer_order_details__element-';
+
   useEffect(() => {
     const fetchCustomerOrders = async () => {
       const { data } = await requestSalesData();
@@ -19,7 +20,6 @@ function Details() {
 
     const handleSaleProduct = async () => {
       const saleInfos = await JSON.parse(localStorage.getItem('carrinho'));
-      console.log('hxbxhsb', saleInfos);
       setCustomerProduct(saleInfos);
     };
     fetchCustomerOrders();
@@ -30,6 +30,8 @@ function Details() {
   return (
     <>
       <NavBar />
+      {customerOrder.length === 0 && <p>Login...</p>}
+
       <div>
         { customerOrder.map((product, index) => (
           <DetailsCard
