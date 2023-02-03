@@ -42,7 +42,6 @@ function Orders() {
     <>
       <NavBar />
       <div>
-        {console.log(customerOrder)}
 
         { customerOrder.map(({ id, userId, status }, index) => (
           <OrderCard

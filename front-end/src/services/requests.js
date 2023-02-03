@@ -72,6 +72,7 @@ export const requestSalesData = async () => {
     data = await axios.get(
       'http://localhost:3001/sales',
     );
+    console.log('sales Data', data);
     return data;
   } catch (error) {
     return { data, message: 'requisição falhou', status: 409 };
