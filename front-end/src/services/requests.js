@@ -4,11 +4,6 @@ const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
 });
 
-export const requestData = async (endpoint) => {
-  const { data } = await api.get(endpoint);
-  return data;
-};
-
 export const requestLogin = async (email, password) => {
   const { data } = await axios.post('http://localhost:3001/login', {
     email,
@@ -28,37 +23,6 @@ export const requestCreate = async (body) => {
   }
 };
 
-export const requestProducts = async () => {
-  try {
-    const { data } = await axios.get('http://localhost:3001/customer/products');
-    return data;
-  } catch (error) {
-    return { message: 'falhou product', status: 400 };
-  }
-};
-
-export const requestSalesID = async (token, body) => {
-  let data;
-  try {
-    data = await axios.post(
-      'http://localhost:3001/sales',
-      {
-        userId: body.userId,
-        totalPrice: body.totalPrice,
-        deliveryAddress: body.addressCustomer,
-        deliveryNumber: body.numberAddress,
-        dateTime: body.dateTime,
-        sellerId: body.sellerId,
-        saleInfos: body.saleInfos,
-
-      },
-      { headers: { Authorization: token } },
-    );
-    return data;
-  } catch (error) {
-    return { data, message: 'venda falhou', status: 409 };
-  }
-};
 export const requestUserData = async () => {
   let data;
   try {
@@ -66,31 +30,6 @@ export const requestUserData = async () => {
     return data;
   } catch (error) {
     return { message: 'falou a requisição', status: 409 };
-  }
-};
-
-export const requestSalesData = async () => {
-  let data;
-  try {
-    data = await axios.get(
-      'http://localhost:3001/sales',
-    );
-    console.log('sales Data', data);
-    return data;
-  } catch (error) {
-    return { data, message: 'requisição falhou', status: 409 };
-  }
-};
-
-export const requestSalesProducts = async () => {
-  let data;
-  try {
-    data = await axios.get(
-      'http://localhost:3001/sales/products',
-    );
-    return data;
-  } catch (error) {
-    return { data, message: 'requisição falhou', status: 409 };
   }
 };
 
