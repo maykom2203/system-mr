@@ -9,7 +9,7 @@ import {
   requestProducts,
 } from '../../services/requests';
 
-function Details() {
+function SellerOrdersDetails() {
   const [customerOrder, setCustomerOrder] = useState([]);
   const [saleId, setsaleId] = useState();
   const [salesProducts, setsalesProducts] = useState([]);
@@ -43,41 +43,33 @@ function Details() {
   };
   const replaceValue = (string) => string.replace('.', ',');
 
-  const dataStats = 'customer_order_details__element-order-details-label-delivery-status';
-  const dataDate = 'customer_order_details__element-order-details-label-order-date';
-  const dataDelivery = 'customer_order_details__button-delivery-check';
-  // const dataSend = 'seller_order_details__button-dispatch-check';
-  const dataSeller = 'customer_order_details__element-order-details-label-seller-name';
-  const dataNumber = 'customer_order_details__element-order-table-item-number';
-  const dataName = 'customer_order_details__element-order-table-name';
-  const dataQuantity = 'customer_order_details__element-order-table-quantity';
-  const dataUnity = 'customer_order_details__element-order-table-unit-price';
-  const dataSub = 'customer_order_details__element-order-table-sub-total';
+  const dataStatus = 'seller_order_details__element-order-details-label-delivery-status';
+  const dataDate = 'seller_order_details__element-order-details-label-order-date';
+  const dataPreparing = 'seller_order_details__button-preparing-check';
+  const dataSend = 'seller_order_details__button-dispatch-check';
+  const dataNumber = 'seller_order_details__element-order-table-item-number';
+  const dataName = 'seller_order_details__element-order-table-name';
+  const dataQuantity = 'seller_order_details__element-order-table-quantity';
+  const dataUnity = 'seller_order_details__element-order-table-unit-price';
+  const dataSub = 'seller_order_details__element-order-table-sub-total';
 
   return (
     <>
       <NavBar />
       {customerOrder.length === 0 ? <p>Loading ...</p>
         : (
+
           <div>
             {' '}
             <div>
               <br />
               <span
-                data-testid="customer_order_details__element-order-details-label-order-id"
+                data-testid="seller_order_details__element-order-details-label-order-id"
               >
                 PEDIDO
                 {' '}
-                {/* {console.log(sale.id)} */}
-                {console.log(sale)}
                 {sale.id}
-                {/* {' '} */}
-              </span>
-              <span
-                data-testid={ dataSeller }
-              >
                 {' '}
-                Fulana Pereira
               </span>
               <span
                 data-testid={ dataDate }
@@ -86,7 +78,7 @@ function Details() {
                 {handleDateOfSale(sale.sale_date)}
               </span>
               <span
-                data-testid={ dataStats }
+                data-testid={ dataStatus }
               >
                 {' '}
                 {sale.status}
@@ -95,20 +87,21 @@ function Details() {
             <br />
             <button
               type="button"
-              disabled
-              data-testid={ dataDelivery }
+              disabled={ false }
+              data-testid={ dataPreparing }
             >
-              MARCAR COMO ENTREGE
+              {console.log}
+              PREPARAR PEDIDO
               {' '}
             </button>
-            {/* <button
+            <button
               type="button"
               disabled
               data-testid={ dataSend }
             >
               SAIU PARA ENTREGA
               {' '}
-            </button> */}
+            </button>
 
             <table>
               <thead>
@@ -119,9 +112,6 @@ function Details() {
                 <td>Sub-total</td>
 
               </thead>
-              {console.log(salesProducts.filter(
-                (sal) => sal.saleId === saleId,
-              ))}
               {salesProducts.filter(
                 (sal) => sal.saleId === saleId,
               ).map((product, index) => (
@@ -149,23 +139,20 @@ function Details() {
                   <td
                     data-testid={ `${dataUnity}-${index}` }
                   >
-                    {replaceValue(allProducts[product.productId - 1].price)}
+                    {allProducts[product.productId - 1].price}
 
                   </td>
                   <td
                     data-testid={ `${dataSub}-${index}` }
                   >
-                    {replaceValue(
-                      (allProducts[product.productId - 1].price * product.quantity)
-                        .toFixed(2),
-                    )}
+                    {allProducts[product.productId - 1].price * product.quantity}
 
                   </td>
                 </tbody>
               ))}
             </table>
             <div
-              data-testid="customer_order_details__element-order-total-price"
+              data-testid="seller_order_details__element-order-total-price"
             >
               <br />
               {' '}
@@ -178,4 +165,4 @@ function Details() {
   );
 }
 
-export default Details;
+export default SellerOrdersDetails;
