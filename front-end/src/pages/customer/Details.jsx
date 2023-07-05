@@ -5,30 +5,30 @@ import NavBar from '../../components/NavBar';
 // import SellerOrderDetailsCard from '../../components/SellerOrderDetailsCard';
 import {
   requestSalesData,
-  requestSalesProducts,
-  requestProducts,
+  // requestSalesProducts,
 } from '../../services/requests';
 
 function Details() {
   const [customerOrder, setCustomerOrder] = useState([]);
   const [saleId, setsaleId] = useState();
-  const [salesProducts, setsalesProducts] = useState([]);
+  // const [salesProducts, setsalesProducts] = useState([]);
   const [allProducts, setallProducts] = useState([]);
 
   useEffect(() => {
     setsaleId(JSON.parse(localStorage.getItem('saleId')));
 
     const fetchAllProducts = async () => {
-      const AllProducts = await requestProducts();
+      const AllProducts = await JSON.parse(localStorage.getItem('carrinho'));
+      console.log(AllProducts);
       setallProducts(AllProducts);
     };
     fetchAllProducts();
 
-    const fetchSalesProducts = async () => {
-      const { data } = await requestSalesProducts();
-      setsalesProducts(data);
-    };
-    fetchSalesProducts();
+    // const fetchSalesProducts = async () => {
+    //   const { data } = await requestSalesProducts();
+    //   setsalesProducts(data);
+    // };
+    // fetchSalesProducts();
 
     const fetchCustomerOrders = async () => {
       const { data } = await requestSalesData();
@@ -36,12 +36,16 @@ function Details() {
     };
     fetchCustomerOrders();
   }, []);
+
   const sale = customerOrder.filter((sal) => sal.id === saleId)[0];
   const handleDateOfSale = (date) => {
     const result = moment(date).format('DD/MM/YYYY');
     return result;
   };
-  const replaceValue = (string) => string.replace('.', ',');
+  // const replaceValue = (string) => string.replace('.', ',');
+  // // const result = salesProducts.filter(
+  // //   (sal) => sal.saleId === saleId,
+  // // );
 
   const dataStats = 'customer_order_details__element-order-details-label-delivery-status';
   const dataDate = 'customer_order_details__element-order-details-label-order-date';
@@ -53,6 +57,7 @@ function Details() {
   const dataQuantity = 'customer_order_details__element-order-table-quantity';
   const dataUnity = 'customer_order_details__element-order-table-unit-price';
   const dataSub = 'customer_order_details__element-order-table-sub-total';
+  const total = allProducts.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
 
   return (
     <>
@@ -119,12 +124,11 @@ function Details() {
                 <td>Sub-total</td>
 
               </thead>
-              {console.log(salesProducts.filter(
+              {/* {console.log('cjxncj', allProducts)}
+              {(salesProducts.filter(
                 (sal) => sal.saleId === saleId,
-              ))}
-              {salesProducts.filter(
-                (sal) => sal.saleId === saleId,
-              ).map((product, index) => (
+              ))} */}
+              {allProducts.map((product, index) => (
                 <tbody
                   key={ product.productId }
                 >
@@ -137,7 +141,8 @@ function Details() {
                   <td
                     data-testid={ `${dataName}-${index}` }
                   >
-                    {allProducts[product.productId - 1].name}
+
+                    {product.name}
 
                   </td>
                   <td
@@ -149,16 +154,13 @@ function Details() {
                   <td
                     data-testid={ `${dataUnity}-${index}` }
                   >
-                    {replaceValue(allProducts[product.productId - 1].price)}
+                    {product.price}
 
                   </td>
                   <td
                     data-testid={ `${dataSub}-${index}` }
                   >
-                    {replaceValue(
-                      (allProducts[product.productId - 1].price * product.quantity)
-                        .toFixed(2),
-                    )}
+                    {product.subTotal}
 
                   </td>
                 </tbody>
@@ -169,7 +171,7 @@ function Details() {
             >
               <br />
               {' '}
-              {replaceValue(sale.total_price)}
+              {total.toFixed(2).replace(/\./, ',')}
             </div>
 
           </div>

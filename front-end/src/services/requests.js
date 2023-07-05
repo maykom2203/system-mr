@@ -29,8 +29,12 @@ export const requestCreate = async (body) => {
 };
 
 export const requestProducts = async () => {
-  const { data } = await axios.get('http://localhost:3001/customer/products');
-  return data;
+  try {
+    const { data } = await axios.get('http://localhost:3001/customer/products');
+    return data;
+  } catch (error) {
+    return { message: 'falhou product', status: 400 };
+  }
 };
 
 export const requestSalesID = async (token, body) => {

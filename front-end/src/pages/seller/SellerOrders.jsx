@@ -26,6 +26,7 @@ function SellerOrders() {
     // };
     const fetchCustomerOrders = async () => {
       const { data } = await requestSalesData();
+      console.log('seller', data);
       // console.log(data);
       // console.log(data);
       // const orderByUserId = data.filter((order) => order.userId === value);

@@ -47,7 +47,7 @@ function CheckoutForm({ cart }) {
       orders: cart.map(({ productId, quantity }) => ({ productId, quantity })),
     };
     const { data } = await requestSalesID(token, body);
-    localStorage.setItem('carrinho', JSON.stringify([]));
+    // localStorage.setItem('carrinho', JSON.stringify([]));
     localStorage.setItem('saleId', JSON.stringify(data.id));
     navigate({
       pathname: `/customer/orders/${data.id}`,
